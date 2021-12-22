@@ -57,17 +57,17 @@ async def duplicate_check(state, conn):
                 if imagehash.hex_to_hash(data['p_hash']) - image_pHash < 13:
                     duplicate_P = True
                     logging.info('Данное фото уже было')
-            elif imagehash.hex_to_hash(data['d_hash']) - image_dHash < 14:
-                if imagehash.hex_to_hash(data['p_hash']) - image_pHash < 18:
+            elif imagehash.hex_to_hash(data['d_hash']) - image_dHash < 16:
+                if imagehash.hex_to_hash(data['p_hash']) - image_pHash < 20:
                     if number < 3:
                         warning = cur.execute('SELECT file_id FROM photo WHERE dHash = ?',
                                               (str(image_dHash),)).fetchone()
                         similar_photos.append(warning[0])
-                        number +=1
+                        number += 1
                         logging.warning('Значительное сходство с некторыми раннее добавленными фото')
 
         if not (duplicate_D and duplicate_P):
-            cur.execute('INSERT INTO photo VALUES (?, ?, ?, ?)', (data['photo'], data['d_hash'], data['p_hash'],''))
+            cur.execute('INSERT INTO photo VALUES (?, ?, ?, ?)', (data['photo'], data['d_hash'], data['p_hash'], ''))
             conn.commit()
             logging.info("Фото было добавлено в базу данных")
 
@@ -82,5 +82,5 @@ async def poll_id_save(state, conn, id_poll: str = ""):
     async with state.proxy() as data:
         cur = conn.cursor()
         photo_id = data['photo']
-        cur.execute('UPDATE photo SET poll_id = ? WHERE file_id = ?', (id_poll, photo_id) )
+        cur.execute('UPDATE photo SET poll_id = ? WHERE file_id = ?', (id_poll, photo_id))
         conn.commit()

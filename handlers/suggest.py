@@ -109,6 +109,10 @@ async def handle_poll_answer(poll_answer: PollAnswer):
         await bot.stop_poll(group_id, vote_result.message_id)
         await bot.send_message(text='Фото было опубликовано!', chat_id=group_id)
 
+    if int(numbers_no/group_members)*100 > 50:
+        await bot.stop_poll(group_id, vote_result.message_id)
+        await bot.send_message(text='Процесс публикации был отменён!', chat_id=group_id)
+
 
 # выход из машины состяний
 @dp.message_handler(commands='stop', state='*')

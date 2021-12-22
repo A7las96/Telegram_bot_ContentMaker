@@ -67,9 +67,9 @@ async def db_drop(message: types.Message):
 @dp.message_handler(is_admin=True, commands=['help'])
 async def process_help_admin(message: types.Message):
     msg = text(bold('В качестве модератора, у вас есть возможность досрочно исполнять процесс публикации или '
-                    'наоборот останавливать его.\n Для этого пропишите соответствующие команды в ответ '
-                    'на сообщение опроса. \n\nТакже вы можете очистить базу данных с информацией о фото'))
-    await message.reply(msg, parse_mode=ParseMode.MARKDOWN)
+                    'наоборот останавливать его' + '\n\nДля этого пропишите соответствующие команды ответным сообщением '
+                    'на сообщение с опросом' + '\n\nТакже вы можете очистить базу данных с информацией о фото'))
+    await bot.send_message(message.from_user.id, text=msg, parse_mode=ParseMode.MARKDOWN)
     await bot.delete_message(chat_id=suggest.group_id, message_id=message.message_id)
 
 
