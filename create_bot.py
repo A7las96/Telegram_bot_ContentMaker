@@ -5,7 +5,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 storage = MemoryStorage()
 
-bot_token = '2050282432:AAG12FTwa2oLOonkC8fLSPlJsoEJXBinjn0'
+bot_token = ' '
 if not bot_token:
     exit("Error: no token provided")
 
